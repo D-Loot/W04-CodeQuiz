@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="./Assets/css/style.css">
+      <title>Document</title>
+  </head>
+  <body>
+      <h1 class="quizTitle">Coding Quiz Questions</h1>
+      <div class="titleScreen">
+        <p>
+          Test your coding knowledge against with this Coding Quiz!<br>
+          When you answer correctly, you get a point, <br> 
+          but if you answer incorrectly, you will lose 2 seconds off the clock. <br>
+          Correctly answer as many questions you can within 30 seconds. <br>
+          The quiz covers <a href="https://www.onlineinterviewquestions.com/html-mcq/">HTML</a>, <a href="https://www.javatpoint.com/css-mcq">CSS</a>, and <a href="https://www.javatpoint.com/javascript-mcq">JavaScript</a>! <br>
+          Good Luck!
+        </p>
+        <div class="centerAlign">
+          <h2 class="hsTitle">High Scores</h2>
+          <ol class="playerScores"></ol>
+        </div>
+      </div>
+
+      <div>
+        <button class="startButton" class="btn">START QUIZ</button>
+      </div>
+
+      <!-- Game Screen -->
+      <section class="gameScreen">
+        <div class="timerElement">
+          <p></p>
+        </div>
+
+        <div class="scoreElement">
+          <p></p>
+        </div>
+
+        <div class="questions">
+          <h2 class="questionText"></h2>
+          <div class="answerDiv buttonA1"></div>
+          <div class="answerDiv buttonA2"></div>
+          <div class="answerDiv buttonA3"></div>
+          <div class="answerDiv buttonA4"></div>
+        </div>
+      </section>
+      <!-- HighScore Screen -->
+      <section class="submitScreen">
+        <form method="POST">
+          <label for="nameSubmit">Please enter your name: </label>
+          <input type="text" id="nameSubmit" name="nameSubmit" placeholder="J. K. Rowling"/>
+        </form>
+        <div class="centerContent">
+          <button class="submitButton" class="btn">SUBMIT</button>
+        </div>
+      </section>
+      <script src="./Assets/js/script.js"></script>
+  </body>
+</html>

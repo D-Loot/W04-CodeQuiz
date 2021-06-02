@@ -1,0 +1,419 @@
+// Associate the html elements to variables in Javascript
+
+// Initial Screen: highScore, HighScore (title), PlayerScores (list elements), Start Button
+var highScore = document.querySelector(".highScore");
+var playerScores = document.querySelector(".playerScores");
+var playerScore = document.querySelector(".playerScore");
+var startButton = document.querySelector(".startButton");
+var titleScreen = document.querySelector(".titleScreen");
+
+// Game Screen: Timer Element, Score Element, Question, Answer Button
+var gameScreen = document.querySelector(".gameScreen");
+var timerElement = document.querySelector(".timerElement");
+var scoreElement = document.querySelector(".scoreElement");
+
+var questions = document.querySelector(".questions");
+var questionText = document.querySelector(".questionText");
+var button1 = document.querySelector(".buttonA1");
+var button2 = document.querySelector(".buttonA2");
+var button3 = document.querySelector(".buttonA3");
+var button4 = document.querySelector(".buttonA4");
+
+// Submit Screen: Text form, Score display, Submit button
+var submitScreen = document.querySelector(".submitScreen");
+var nameSubmit = document.querySelector("#nameSubmit");
+var submitButton = document.querySelector(".submitButton");
+
+// Global Variables
+var score = 0;
+var timer;
+var qtext = a1 = a2 = a3 = a4 = answer = ""
+
+// This generates a list of fake scores and names for the player to beat initially
+var highScoreArray = [{
+    name: "Albus Dumbledore",
+    score: 10
+},{
+    name: "Hermione Granger",
+    score: 8
+},{
+    name: "Ron Weasley",
+    score: 5
+},{
+    name: "Harry Potter",
+    score: 7
+
+},{
+    name: "Dobby the House Elf",
+    score: 3
+}]
+
+// These are the questions used in the quiz
+const qs = [
+    {
+        question:'Which of following is not an attribute of <form> tag',
+        options: ['Action',
+        'Method',
+        'name',
+        'url'],
+        answer:'url',
+    },{
+        question:'HTML Is A Subset Of',
+        options: ['SGMT',
+        'SGMD',
+        'SGML',
+        'None Of These'],
+        answer:'SGML',
+    },{
+        question:'The BODY Tag Is Usually Used After',
+        options: ['EM Tag',
+        'TITLE Tag',
+        'HEAD Tag',
+        'HTML Tag'],
+        answer:'HTML Tag',
+    },{
+        question:'A Much Better Approach To Establish The Base URL \nIs To Use The ______ Element.',
+        options: ['BODY',
+        'BASE',
+        'HEAD',
+        'None Of The Above'],
+        answer:'BASE',
+    },{
+        question:'Gif And Jpg Are The Two Main Types Of What ?',
+        options: ['Videos',
+        'Images',
+        'None Of The Above',
+        'Animated Effects'],
+        answer:'Animated Effects',
+    },{
+        question:'CSS stands for -',
+        options: ['Cascade style sheets',
+        'Color and style sheets',
+        'Cascading style sheets',
+        'None of the above'],
+        answer:'Cascading style sheets',
+    },{
+        question:'The property in CSS used to change the background \ncolor of an element is -',
+        options: ['bgcolor',
+        'color',
+        'background-color',
+        'All of the above'],
+        answer:'background-color',
+    },{
+        question:'The property in CSS used to change the \ntext color of an element is -',
+        options: ['bgcolor',
+        'color',
+        'background-color',
+        'All of the above'],
+        answer:'color',
+    },{
+        question:"The CSS property used to control the element's font-size is -",
+        options: ['text-style',
+        'text-size',
+        'font-size',
+        'None of the above'],
+        answer:'font-size',
+    },{
+        question:'The HTML attribute used to define the inline styles is -',
+        options: ['style',
+        'styles',
+        'class',
+        'None of the above'],
+        answer:'style',
+    },{
+        question:'Which of the following CSS property is used to set \nthe background image of an element?',
+        options: ['background-attachment',
+        'background-image',
+        'background-color',
+        'None of the above'],
+        answer:'background-image',
+    },{
+        question:'Which of the following is the correct syntax to make \nthe background-color of all paragraph elements to yellow?',
+        options: ['p {background-color : yellow;}',
+        'p {background-color : #yellow;}',
+        'all {background-color : yellow;}',
+        'all p {background-color : #yellow;}'],
+        answer:'p {background-color : yellow;}',
+    },{
+        question:'Which of the following is the correct syntax to display \nthe hyperlinks without any underline?',
+        options: ['a {text-decoration : underline;}',
+        'a {decoration : no-underline;}',
+        'a {text-decoration : none;}',
+        'None of the above'],
+        answer:'a {text-decoration : none;}',
+    },{
+        question:'___ best describes the type of language JavaScript is.',
+        options: ['Object-Oriented',
+        'Object-Based',
+        'Assembly-language',
+        'High-level'],
+        answer:'Object-Based',
+    },{
+        question:'Which one of the following also known as Conditional Expression:',
+        options: ['Alternative to if-else',
+        'Switch statement',
+        'If-then-else statement',
+        'immediate if'],
+        answer:'immediate if',
+    },{
+        question:'In JavaScript, what is a block of statement?',
+        options: ['Conditional block',
+        'block that combines a number \nof statements into a single \ncompound statement',
+        'both conditional block and a single statement',
+        'block that contains a single statement'],
+        answer:'block that combines a number \nof statements into a single \ncompound statement',
+    },{
+        question:'When interpreter encounters an empty statements, what it will do:',
+        options: ['Shows a warning',
+        'Prompts to complete the statement',
+        'Throws an error',
+        'Ignores the statements'],
+        answer:'Ignores the statements',
+    },{
+        question:'The "function" and " var" are known as:',
+        options: ['Keywords',
+        'Data types',
+        'Declaration statements',
+        'Prototypes'],
+        answer:'Declaration statements',
+    },{
+        question:'Which of the following variables takes precedence over the \nothers if the names are the same?',
+        options: ['Global variable',
+        'The local element',
+        'The two of the above',
+        'None of the above'],
+        answer:'The local element',
+    },{
+        question:'Which one of the following is the correct way \nfor calling the JavaScript code?',
+        options: ['Preprocessor',
+        'Triggering Event',
+        'RMI',
+        'Function/Method'],
+        answer:'Function/Method',
+    },{
+        question:'Which of the following type of a variable is volatile?',
+        options: ['Mutable variable',
+        'Dynamic variable',
+        'Volatile variable',
+        'Immutable variable'],
+        answer:'Mutable variable',
+    },{
+        question:'Which of the following option is used as hexadecimal literal beginning?',
+        options: ['0',
+        '0x',
+        '0X',
+        'Both 0x and 0X'],
+        answer:'Both 0x and 0X',
+    },{
+        question:'When there is an indefinite or an infinite value during \nan arithmetic computation in a program, then JavaScript prints______.',
+        options: ['Prints an exception error',
+        'Prints an overflow error',
+        'Displays "Infinity"',
+        'Prints the value as such'],
+        answer:'Displays "Infinity"',
+    },{
+        question:'In the JavaScript, which one of the following is \nnot considered as an error:',
+        options: ['Syntax error',
+        'Missing of semicolons',
+        'Division by zero',
+        'Missing of Bracket'],
+        answer:'Division by zero',
+    },{
+        question:'Which of the following givenfunctions of the Number Object \nformats a number with a different number of digits to the \nright of the decimal?',
+        options: ['toExponential()',
+        'toFixed()',
+        'toPrecision()',
+        'toLocaleString()'],
+        answer:'toFixed()',
+    },{
+        question:'Which of the following number object function returns \nthe value of the number?',
+        options: ['toString()',
+        'valueOf()',
+        'toLocaleString()',
+        'toPrecision()'],
+        answer:'valueOf()',
+    },{
+        question:'Which of the following function of the String object returns \nthe character in the string starting at the specified position \nvia the specified number of characters?',
+        options: ['slice()',
+        'split()',
+        'substr()',
+        'search()'],
+        answer:'substr()',
+    },{
+        question:'In JavaScript the x===y statement implies that:',
+        options: ['Both x and y are equal in value, \ntype and reference address as well.',
+        'Both are x and y are \nequal in value only.',
+        'Both are equal in the \nvalue and data type.',
+        'Both are not same at all.'],
+        answer:'Both are equal in the \nvalue and data type.',
+    }]
+
+// Initialize the webpage by getting and displaying the High Scores and the names associated with them
+init();
+function init(){
+    setTitleScreen();
+}
+function setTitleScreen(){
+    getHighScore();
+    titleScreen.style.display= "block";
+    gameScreen.style.display= "none";
+    submitScreen.style.display="none";
+    startButton.style.display="block";
+    submitButton.style.display="none";
+    scoreElement.style.display="none";
+}
+
+function getHighScore(){
+    var storedHighScoresArray = JSON.parse(localStorage.getItem("highScoreArray"));
+    if (storedHighScoresArray !== null) {
+      highScoreArray = storedHighScoresArray;
+    }
+
+    playerScores.innerHTML = "";
+    var sortScores = highScoreArray.slice(0);
+    sortScores.sort(function(a,b) {
+        return b.score - a.score;
+    });
+
+    for (var i=0; i < 5; i++){
+        var li = document.createElement("li");
+        li.textContent = sortScores[i].score+ " - "+sortScores[i].name;
+        playerScores.appendChild(li);
+    }
+}
+
+startButton.addEventListener("click",function(){
+    setGameScreen();
+    startGame();
+    submitNameHS();
+})
+
+
+function setGameScreen(){
+    titleScreen.style.display= "none";
+    gameScreen.style.display= "block";
+    scoreElement.style.display = "block";
+    timerElement.textContent = "TIME: "+30;
+    scoreElement.textContent = "SCORE: "+0;
+    questions.style.display = "block"
+    submitScreen.style.display = "none";
+    startButton.style.display="none";
+    submitButton.style.display="none";
+}
+
+// start clock
+function startGame(){
+    var timer = 29;
+
+    getQuestions();
+
+    // Listen for clicks and check the click against the correct answer
+    button1.addEventListener("click",function(){
+        if (a1 === answer){
+        // If it is the correct answer, add a point to the score, 
+            addToScore();
+            getQuestions();            
+        } else{
+        // if it is incorrect, reduce the timer by 5 sec
+            timer -=2;
+            getQuestions();
+        };
+    })
+
+    // Listen for clicks and check the click against the correct answer
+    button2.addEventListener("click",function(){
+        if (a2 === answer){
+        // If it is the correct answer, add a point to the score,
+            addToScore();
+            getQuestions();
+        } else{
+        // if it is incorrect, reduce the timer by 5 sec
+            timer -=2;
+            getQuestions();
+        };
+    })
+
+    // Listen for clicks and check the click against the correct answer
+    button3.addEventListener("click",function(){
+        if (a3 === answer){
+            // If it is the correct answer, add a point to the score, 
+            addToScore();
+            getQuestions();
+        } else{
+        // if it is incorrect, reduce the timer by 5 sec
+            timer -=2;
+            getQuestions();  
+        };
+    })
+
+    // Listen for clicks and check the click against the correct answer
+    button4.addEventListener("click",function(){
+        if (a4 === answer){
+        // If it is the correct answer, add a point to the score, 
+            addToScore();
+            getQuestions();
+        } else{
+        // if it is incorrect, reduce the timer by 5 sec
+            timer -=2;
+            getQuestions();  
+        };
+    })
+    var timerCount = setInterval(function(){
+        if (timer>0){
+            timerElement.textContent = "TIME: "+timer;
+            timer--;
+        } else {
+            timerElement.textContent = "TIME: "+0;
+            clearInterval(timerCount);
+            // when the timer reaches 0 or less, stop the timer, and store the final score and ask for the name.
+            goToSubmitScreen();
+        }
+    },1000)
+}
+
+function getQuestions(){
+    const i = Math.floor(Math.random() * qs.length);
+    qtext = qs[i].question;
+    a1 = qs[i].options[0];
+    a2 = qs[i].options[1];
+    a3 = qs[i].options[2];
+    a4 = qs[i].options[3];
+    answer = qs[i].answer;
+
+    questionText.innerHTML=`${qtext}`;
+    button1.innerHTML=`${a1}`;
+    button2.innerHTML=`${a2}`;
+    button3.innerHTML=`${a3}`;
+    button4.innerHTML=`${a4}`;
+}
+
+// If it is the correct answer, add a point to the score, 
+function addToScore(){
+    score ++;
+    scoreElement.textContent = "SCORE: "+score;
+}
+
+function goToSubmitScreen(){
+    titleScreen.style.display= "none";
+    questions.style.display="none";
+    submitScreen.style.display = "block";
+    startButton.style.display="none";
+    timerElement.style.display="none";
+    submitButton.style.display="block";
+}
+
+function submitNameHS(event){
+    submitButton.addEventListener("click", function(event){
+        event.preventDefault();
+        var playerName = document.querySelector("#nameSubmit").value;
+        var newRecord = {};
+        newRecord.name = playerName;
+        newRecord.score = score;
+
+        highScoreArray.push(newRecord);
+
+        localStorage.setItem("highScoreArray",JSON.stringify(highScoreArray));
+
+        location.reload();
+    })
+}
