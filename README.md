@@ -1,5 +1,52 @@
 # 04 Web APIs: Code Quiz
 
+
+# The Task
+
+The task for this homework was to create a timed quiz game that asked a player questions which kept score, and decreased the time for any incorrect answers (in this case I subtracted 2 seconds). When the game ends, the player is prompted to submit their name and their name and score are shown in a high score display. 
+
+For this project, I created 3 classes to be displayed throughout the game: "title screen", "game screen", and "submit screen". The game would cycle through these displays when necessary, and store the player's name and score in the local storage to later be displayed on the title screen high score. In order to get interesting questions I used some "interview questions" that I found online and linked to my sources in the title screen description. For easier use, I designed the buttons to highlight when hovered over with the cursor.
+
+## Acceptance Criteria
+
+```
+GIVEN I am taking a code quiz
+    WHEN I click the start button
+        THEN a timer starts and I am presented with a question
+    WHEN I answer a question
+        THEN I am presented with another question
+    WHEN I answer a question incorrectly
+        THEN time is subtracted from the clock
+    WHEN all questions are answered or the timer reaches 0
+        THEN the game is over
+    WHEN the game is over
+        THEN I can save my initials and my score
+```
+
+Once the changes to the code were implemented, everything needed to be uploaded to a Github Repository
+
+    * Repository contains: 
+    *       quality README file with description, 
+    *       screenshot, and 
+    *       link to deployed application.
+
+![TitleScreen](./Assets/img/QuizImage1.PNG)
+
+
+![GameScreen](./Assets/img/QuizImage2.PNG)
+
+
+![SubmitScreen](./Assets/img/QuizImage3.PNG)
+
+
+![TitleScreen2](./Assets/img/QuizImage4.PNG)
+
+Website: https://d-loot.github.io/W04-CodeQuiz/
+
+Github: https://github.com/D-Loot/W04-CodeQuiz
+
+# Background Information
+
 ## Your Task
 
 At some point in your journey to become a full-stack web developer, you’ll likely be asked to complete a coding assessment&mdash;perhaps as part of an interview process. A typical coding assessment includes both multiple-choice questions and interactive coding challenges. 

@@ -264,17 +264,23 @@ function setTitleScreen(){
 }
 
 function getHighScore(){
+    // Get the local storage of highScoreArray
     var storedHighScoresArray = JSON.parse(localStorage.getItem("highScoreArray"));
+    // If storedHighScoreArray is not null, then the highScoreArray is the stored array
     if (storedHighScoresArray !== null) {
       highScoreArray = storedHighScoresArray;
     }
 
+    // Clear the existing high score display
     playerScores.innerHTML = "";
+
+    // Sort the array from high score to low score
     var sortScores = highScoreArray.slice(0);
     sortScores.sort(function(a,b) {
         return b.score - a.score;
     });
 
+    // List the top 5 scores and their names
     for (var i=0; i < 5; i++){
         var li = document.createElement("li");
         li.textContent = sortScores[i].score+ " - "+sortScores[i].name;
@@ -290,6 +296,7 @@ startButton.addEventListener("click",function(){
 
 
 function setGameScreen(){
+    // Display the timer, score, questions and hide the title screen components
     titleScreen.style.display= "none";
     gameScreen.style.display= "block";
     scoreElement.style.display = "block";
@@ -303,6 +310,7 @@ function setGameScreen(){
 
 // start clock
 function startGame(){
+    // Set the time at 30, it will take a second to display the timer, then it needs to be 29 seconds
     var timer = 29;
 
     getQuestions();
@@ -372,6 +380,7 @@ function startGame(){
 }
 
 function getQuestions(){
+    // Get a random question from the array and display it's contents
     const i = Math.floor(Math.random() * qs.length);
     qtext = qs[i].question;
     a1 = qs[i].options[0];
@@ -394,6 +403,7 @@ function addToScore(){
 }
 
 function goToSubmitScreen(){
+    // Turn off the game screen elements and turn on the submission textbox and submission button
     titleScreen.style.display= "none";
     questions.style.display="none";
     submitScreen.style.display = "block";
@@ -405,15 +415,21 @@ function goToSubmitScreen(){
 function submitNameHS(event){
     submitButton.addEventListener("click", function(event){
         event.preventDefault();
+        // Get the name from the submission textbox and save it to playerName
         var playerName = document.querySelector("#nameSubmit").value;
+        // Create a new object to be added to an array of objects
         var newRecord = {};
+        // Save the name and score to the elements of the object
         newRecord.name = playerName;
         newRecord.score = score;
 
+        // Attach the object to the array of objects, to be sorted later
         highScoreArray.push(newRecord);
 
+        // Set the local storage to the new highScoreArray
         localStorage.setItem("highScoreArray",JSON.stringify(highScoreArray));
 
+        // Reload the page, returning to the Title Screen will cause an unwanted loop
         location.reload();
     })
 }

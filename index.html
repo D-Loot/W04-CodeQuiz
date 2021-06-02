@@ -5,7 +5,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="./Assets/css/style.css">
-      <title>Document</title>
+      <title>Code Quiz</title>
   </head>
   <body>
       <h1 class="quizTitle">Coding Quiz Questions</h1>
@@ -30,16 +30,20 @@
 
       <!-- Game Screen -->
       <section class="gameScreen">
+        <!-- Display the timer -->
         <div class="timerElement">
           <p></p>
         </div>
-
+        
+        <!-- Display the score -->
         <div class="scoreElement">
           <p></p>
         </div>
 
         <div class="questions">
+          <!-- Question -->
           <h2 class="questionText"></h2>
+          <!-- Options -->
           <div class="answerDiv buttonA1"></div>
           <div class="answerDiv buttonA2"></div>
           <div class="answerDiv buttonA3"></div>
@@ -48,6 +52,7 @@
       </section>
       <!-- HighScore Screen -->
       <section class="submitScreen">
+        <!-- Textbox to write your name and a button to submit it-->
         <form method="POST">
           <label for="nameSubmit">Please enter your name: </label>
           <input type="text" id="nameSubmit" name="nameSubmit" placeholder="J. K. Rowling"/>
