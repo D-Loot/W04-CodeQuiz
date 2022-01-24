@@ -26,13 +26,14 @@ body {
 
 .answerDiv {
     border: black 1px solid;
-    border-radius: 0.25rem;
+    border-radius: 1rem;
+    width: 80%;
     margin: 2px;
     align-content: center;
     text-align-last: center;
 }
 
-.answerDiv:active{
+.answerDiv:hover{
     background-color: aqua;
 }
 

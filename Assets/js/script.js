@@ -5,13 +5,11 @@ var highScore = document.querySelector(".highScore");
 var playerScores = document.querySelector(".playerScores");
 var playerScore = document.querySelector(".playerScore");
 var startButton = document.querySelector(".startButton");
-var resetButton = document.querySelector(".resetButton");
 var titleScreen = document.querySelector(".titleScreen");
 
 // Game Screen: Timer Element, Score Element, Question, Answer Button
 var gameScreen = document.querySelector(".gameScreen");
-var qNumberElement = document.querySelector(".qNumberElement");
-//var timerElement = document.querySelector(".timerElement");
+var timerElement = document.querySelector(".timerElement");
 var scoreElement = document.querySelector(".scoreElement");
 
 var questions = document.querySelector(".questions");
@@ -28,47 +26,29 @@ var submitButton = document.querySelector(".submitButton");
 
 // Global Variables
 var score = 0;
-var questionNumber = 1;
-//var timer;
+var timer;
 var qtext = a1 = a2 = a3 = a4 = answer = ""
 
-
 // This generates a list of fake scores and names for the player to beat initially
-
 var highScoreArray = [{
-    name: "Minecraft Steve",
-    score: 9
+    name: "Albus Dumbledore",
+    score: 10
 },{
-    name: "Mario",
+    name: "Hermione Granger",
     score: 8
 },{
-    name: "Peach",
-    score: 7
-},{
-    name: "Zelda",
-    score: 6
-},{
-    name: "Link",
+    name: "Ron Weasley",
     score: 5
 },{
-    name: "Bowser",
-    score: 4
+    name: "Harry Potter",
+    score: 7
+
 },{
-    name: "Luigi",
+    name: "Dobby the House Elf",
     score: 3
-},{
-    name: "Ash",
-    score: 2
-},{
-    name: "Charizard",
-    score: 1
-},{
-    name: "Psyduck",
-    score: 0
 }]
 
 // These are the questions used in the quiz
-/*
 const qs = [
     {
         question:'Which of following is not an attribute of <form> tag',
@@ -267,7 +247,6 @@ const qs = [
         'Both are not same at all.'],
         answer:'Both are equal in the \nvalue and data type.',
     }]
-*/
 
 // Initialize the webpage by getting and displaying the High Scores and the names associated with them
 init();
@@ -280,7 +259,6 @@ function setTitleScreen(){
     gameScreen.style.display= "none";
     submitScreen.style.display="none";
     startButton.style.display="block";
-    resetButton.style.display="block";
     submitButton.style.display="none";
     scoreElement.style.display="none";
 }
@@ -303,7 +281,7 @@ function getHighScore(){
     });
 
     // List the top 5 scores and their names
-    for (var i=0; i < 10; i++){
+    for (var i=0; i < 5; i++){
         var li = document.createElement("li");
         li.textContent = sortScores[i].score+ " - "+sortScores[i].name;
         playerScores.appendChild(li);
@@ -316,51 +294,37 @@ startButton.addEventListener("click",function(){
     submitNameHS();
 })
 
-resetButton.addEventListener("click", function(event){
-    event.preventDefault();
-
-    // Set the local storage to the new highScoreArray
-    localStorage.clear();
-
-    // Reload the page, returning to the Title Screen will cause an unwanted loop
-    location.reload();
-})
-
 
 function setGameScreen(){
     // Display the timer, score, questions and hide the title screen components
     titleScreen.style.display= "none";
     gameScreen.style.display= "block";
     scoreElement.style.display = "block";
-    qNumberElement.textContent = "Question Number: "+questionNumber;
-    //timerElement.textContent = "TIME: "+30;
-    scoreElement.textContent = "SCORE: "+0+"/10";
+    timerElement.textContent = "TIME: "+30;
+    scoreElement.textContent = "SCORE: "+0;
     questions.style.display = "block"
     submitScreen.style.display = "none";
     startButton.style.display="none";
-    resetButton.style.display="none";
     submitButton.style.display="none";
 }
 
 // start clock
 function startGame(){
     // Set the time at 30, it will take a second to display the timer, then it needs to be 29 seconds
-    //var timer = 29;
+    var timer = 29;
 
-    getNewQuestions();
+    getQuestions();
 
     // Listen for clicks and check the click against the correct answer
     button1.addEventListener("click",function(){
         if (a1 === answer){
-        // If it is the correct answer, add a point to the score,
+        // If it is the correct answer, add a point to the score, 
             addToScore();
-            addToQuestionNumber()
-            getNewQuestions();
+            getQuestions();            
         } else{
         // if it is incorrect, reduce the timer by 5 sec
-        //    timer -=2;
-            addToQuestionNumber()
-            getNewQuestions();
+            timer -=2;
+            getQuestions();
         };
     })
 
@@ -369,45 +333,40 @@ function startGame(){
         if (a2 === answer){
         // If it is the correct answer, add a point to the score,
             addToScore();
-            addToQuestionNumber()
-            getNewQuestions();
+            getQuestions();
         } else{
         // if it is incorrect, reduce the timer by 5 sec
-        //    timer -=2;
-            addToQuestionNumber()
-            getNewQuestions();
+            timer -=2;
+            getQuestions();
         };
     })
 
     // Listen for clicks and check the click against the correct answer
     button3.addEventListener("click",function(){
         if (a3 === answer){
-            // If it is the correct answer, add a point to the score,
+            // If it is the correct answer, add a point to the score, 
             addToScore();
-            addToQuestionNumber()
-            getNewQuestions();
+            getQuestions();
         } else{
         // if it is incorrect, reduce the timer by 5 sec
-        //    timer -=2;
-            addToQuestionNumber()
-            getNewQuestions();
+            timer -=2;
+            getQuestions();  
         };
     })
 
     // Listen for clicks and check the click against the correct answer
     button4.addEventListener("click",function(){
         if (a4 === answer){
-        // If it is the correct answer, add a point to the score,
+        // If it is the correct answer, add a point to the score, 
             addToScore();
-            addToQuestionNumber()
-            getNewQuestions();
+            getQuestions();
         } else{
         // if it is incorrect, reduce the timer by 5 sec
-        //    timer -=2;
-            getNewQuestions();
+            timer -=2;
+            getQuestions();  
         };
     })
-    /*var timerCount = setInterval(function(){
+    var timerCount = setInterval(function(){
         if (timer>0){
             timerElement.textContent = "TIME: "+timer;
             timer--;
@@ -418,10 +377,8 @@ function startGame(){
             goToSubmitScreen();
         }
     },1000)
-    */
 }
 
-/*
 function getQuestions(){
     // Get a random question from the array and display it's contents
     const i = Math.floor(Math.random() * qs.length);
@@ -438,17 +395,11 @@ function getQuestions(){
     button3.innerHTML=`${a3}`;
     button4.innerHTML=`${a4}`;
 }
-*/
 
-// If it is the correct answer, add a point to the score,
+// If it is the correct answer, add a point to the score, 
 function addToScore(){
     score ++;
-    scoreElement.textContent = "SCORE: "+score+"/10";
-}
-
-function addToQuestionNumber(){
-    questionNumber ++;
-    qNumberElement.textContent = "Question Number: "+questionNumber;
+    scoreElement.textContent = "SCORE: "+score;
 }
 
 function goToSubmitScreen(){
@@ -457,7 +408,7 @@ function goToSubmitScreen(){
     questions.style.display="none";
     submitScreen.style.display = "block";
     startButton.style.display="none";
-    //timerElement.style.display="none";
+    timerElement.style.display="none";
     submitButton.style.display="block";
 }
 
@@ -482,53 +433,3 @@ function submitNameHS(event){
         location.reload();
     })
 }
-
-function getNewQuestions(){
-    if (questionNumber > 10){
-        qNumberElement.textContent = "Question Number: 10"
-        goToSubmitScreen();
-    }
-    var variable1 = Math.floor(Math.random() * 9)
-    var variable2 = Math.floor(Math.random() * 9)
-
-    var answers = []
-
-    answers.push(variable1 * variable2)
-    answer = variable1 * variable2
-
-    for (i = 0; answers.length < 4; i++){
-        var incorrect = Math.floor(Math.random() * 100)
-        if (answers.includes(incorrect)===false){
-            answers.push(incorrect)
-        }
-    }
-    shuffle(answers)
-    a1 = answers.pop()
-    a2 = answers.pop()
-    a3 = answers.pop()
-    a4 = answers.pop()
-
-    questionText.innerHTML=`${variable1} x ${variable2} = `;
-    button1.innerHTML=`${a1}`;
-    button2.innerHTML=`${a2}`;
-    button3.innerHTML=`${a3}`;
-    button4.innerHTML=`${a4}`;
-}
-
-function shuffle(array) {
-    let currentIndex = array.length,  randomIndex;
-
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
-
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-
-    return array;
-  }
